@@ -53,11 +53,11 @@ func (l *List) ListTasks() map[string]Task {
 	return temp
 }
 
-func (l *List) ListUncomplitedTasks() map[string]Task {
+func (l *List) ListUncompletedTasks() map[string]Task {
 	l.mtx.RLock()
 	defer l.mtx.RUnlock()
 
-	temp := make(map[string]Task, len(l.tasks))
+	temp := make(map[string]Task)
 
 	for k, v := range l.tasks {
 		if !v.IsCompleted {
@@ -67,12 +67,11 @@ func (l *List) ListUncomplitedTasks() map[string]Task {
 
 	return temp
 }
-
 func (l *List) ListCompletedTasks() map[string]Task {
 	l.mtx.RLock()
 	defer l.mtx.RUnlock()
 
-	temp := make(map[string]Task, len(l.tasks))
+	temp := make(map[string]Task)
 
 	for k, v := range l.tasks {
 		if v.IsCompleted {

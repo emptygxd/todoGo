@@ -2,31 +2,16 @@ package main
 
 import (
 	"fmt"
+	"todo/http"
 	"todo/todo"
 )
 
 func main() {
-	task1 := todo.NewTask("Уроки", "Английский язык")
-	task2 := todo.NewTask("Покупки", "сыр")
-	task3 := todo.NewTask("Развлечения", "сходить в кино")
+	todoList := todo.NewList()
+	handlers := http.NewHTTPHandlers(todoList)
+	server := http.NewHTTPServer(handlers)
 
-	list := todo.NewList()
-	list.AddTask(task1)
-	list.AddTask(task2)
-	list.AddTask(task3)
-
-	fmt.Println("----------")
-
-	fmt.Println(list.CompleteTask("Покупки"))
-	fmt.Println("----------")
-
-	for _, v := range list.ListCompletedTasks() {
-		fmt.Println(v)
+	if err := server.StartServer(); err != nil {
+		fmt.Println("failed to start  server")
 	}
-	fmt.Println("----------")
-
-	for _, v := range list.ListTasks() {
-		fmt.Println(v)
-	}
-
 }
