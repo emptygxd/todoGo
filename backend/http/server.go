@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -27,11 +28,16 @@ func (s *HTTPServer) StartServer() error {
 	router.Path("/tasks/{title}").Methods("PATCH").HandlerFunc(s.httpHandlers.HandleCompleteTask)
 	router.Path("/tasks/{title}").Methods("DELETE").HandlerFunc(s.httpHandlers.HandleDeleteTask)
 
-	if err := http.ListenAndServe(":9090", router); err != nil {
+	cors := handlers.CORS(
+		handlers.AllowedOrigins([]string{"http://localhost:5173"}),
+		handlers.AllowedMethods([]string{"GET", "POST", "PATCH", "DELETE", "OPTIONS"}),
+		handlers.AllowedHeaders([]string{"Content-Type", "Authorization"}),
+	)
+
+	if err := http.ListenAndServe(":9090", cors(router)); err != nil {
 		if errors.Is(err, http.ErrServerClosed) {
 			return nil
 		}
-
 		return err
 	}
 

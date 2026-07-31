@@ -1,0 +1,14 @@
+.createWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.createContainer {
+  width: 50%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
