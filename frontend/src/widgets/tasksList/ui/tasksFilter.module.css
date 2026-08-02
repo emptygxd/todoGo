@@ -1,0 +1,47 @@
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 220px;
+  padding: 12px 40px 12px 16px;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  background-color: var(--border);
+  color: #fff;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.select:hover {
+  border-color: #888;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+
+  width: 18px;
+  height: 18px;
+
+  color: #fff;
+
+  pointer-events: none;
+  transform: translateY(-50%) rotate(0);
+  transition: transform 0.2s;
+}
+
+.open + .icon {
+  transform: translateY(-50%) rotate(180deg);
+}

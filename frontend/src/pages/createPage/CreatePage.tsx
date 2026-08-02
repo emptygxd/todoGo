@@ -1,8 +1,9 @@
 import { useState } from "react";
-import "./createPage.css";
 import { http } from "@shared";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+import styles from "./createPage.module.css";
 
 export const CreatePage = () => {
   const [title, setTitle] = useState("");
@@ -27,8 +28,8 @@ export const CreatePage = () => {
   };
 
   return (
-    <div className="createWrapper">
-      <div className="createContainer">
+    <div className={styles.createWrapper}>
+      <div className={styles.createContainer}>
         <h1>CreatePage</h1>
 
         <input

@@ -1,2 +1,2 @@
 export * from "./constants/routes";
-export * from "./services/index";
+export { default as http } from "./api/http";

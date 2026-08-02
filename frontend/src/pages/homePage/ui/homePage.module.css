@@ -1,0 +1,10 @@
+.filterWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.filterWrapper h2 {
+  margin-bottom: 0;
+}

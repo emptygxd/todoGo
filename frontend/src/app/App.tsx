@@ -1,16 +1,22 @@
 import { Route, Routes } from "react-router-dom";
 
-import { CreatePage, HomePage } from "@pages";
+import { MainLayout } from "@app";
+
+import { CreatePage, HomePage, TaskPage } from "@pages";
+
+import { ROUTES } from "@shared";
 
 import "./App.css";
-import { ROUTES } from "@shared";
 
 function App() {
   return (
     <div>
       <Routes>
-        <Route path={ROUTES.MAIN} element={<HomePage />} />
-        <Route path={ROUTES.CREATE} element={<CreatePage />} />
+        <Route element={<MainLayout />}>
+          <Route path={ROUTES.MAIN} element={<HomePage />} />
+          <Route path={ROUTES.CREATE} element={<CreatePage />} />
+          <Route path={ROUTES.TASK_BY_TITLE} element={<TaskPage />} />
+        </Route>
       </Routes>
     </div>
   );
