@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { http } from "@shared";
 import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
+
+import { Button, http, Input } from "@shared";
 
 import styles from "./createPage.module.css";
 
@@ -32,7 +34,7 @@ export const CreatePage = () => {
       <div className={styles.createContainer}>
         <h1>CreatePage</h1>
 
-        <input
+        <Input
           type="text"
           placeholder="Title"
           name="title"
@@ -40,7 +42,7 @@ export const CreatePage = () => {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <input
+        <Input
           type="text"
           placeholder="Description"
           name="description"
@@ -48,7 +50,7 @@ export const CreatePage = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <button onClick={handleClick}>Создать</button>
+        <Button onClick={handleClick}>Создать</Button>
         {error ?? <div>{error}</div>}
       </div>
     </div>
