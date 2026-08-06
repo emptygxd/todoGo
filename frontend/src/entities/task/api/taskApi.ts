@@ -8,6 +8,12 @@ export const getTasks = async (): Promise<Task[]> => {
   return Object.values(res.data);
 };
 
+export const getTaskByTitle = async (title: string): Promise<Task> => {
+  const res = await http.get<Task>(`/tasks/${title}`);
+
+  return res.data;
+};
+
 export const createTask = async ({ title, description }: createTaskDTO) => {
   return await http.post("/tasks", {
     Title: title,

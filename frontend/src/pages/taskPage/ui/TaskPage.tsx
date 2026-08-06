@@ -1,31 +1,18 @@
-import { useEffect, useState } from "react";
-
-import { http } from "@shared";
 import { useParams } from "react-router-dom";
-import type { Task } from "@entities";
+
+import { useTaskByTitle } from "@entities";
 
 export const TaskPage = () => {
-  const [task, setTask] = useState<Task>();
-  const [loading, setLoading] = useState(true);
-  const { title } = useParams();
+  const { title = "" } = useParams();
 
-  useEffect(() => {
-    const fetchTask = async () => {
-      try {
-        const res = await http.get(`/tasks/${title}`);
-        setTask(res.data);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const { data: task, isLoading, isError, error } = useTaskByTitle(title);
 
-    fetchTask();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
+  }
+  if (isError) {
+    console.log(error);
+    return <div>Error</div>;
   }
 
   if (!task) {

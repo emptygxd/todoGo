@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useCreateTask } from "@pages";
+import { useCreateTask } from "@entities";
 
 import { Button, Input } from "@shared";
 
@@ -14,8 +14,8 @@ export const CreatePage = () => {
 
   const handleClick = async () => {
     createMutation.mutate({
-      title,
-      description,
+      title: title.trim(),
+      description: description.trim(),
     });
   };
 
