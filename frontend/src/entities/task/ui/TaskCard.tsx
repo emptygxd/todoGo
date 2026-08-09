@@ -9,7 +9,7 @@ import { ROUTES } from "@shared";
 type Props = {
   task: Task;
   onDelete: (title: string) => void;
-  onComplete: (title: string) => void;
+  onComplete: (title: string, completed: boolean) => void;
 };
 
 export const TaskCard = ({ task, onDelete, onComplete }: Props) => {
@@ -36,7 +36,7 @@ export const TaskCard = ({ task, onDelete, onComplete }: Props) => {
         className={`${styles.taskImg} ${styles.done}`}
         onClick={(e) => {
           e.preventDefault();
-          onComplete(task.Title);
+          onComplete(task.Title, !task.IsCompleted);
         }}
       >
         <DoneIcon />

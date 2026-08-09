@@ -1,10 +1,24 @@
 import type { Task } from "@entities";
 import { http } from "@shared";
+import type { createTaskDTO } from "./dto";
 
 export const getTasks = async (): Promise<Task[]> => {
   const res = await http.get<Record<string, Task>>("/tasks");
 
   return Object.values(res.data);
+};
+
+export const getTaskByTitle = async (title: string): Promise<Task> => {
+  const res = await http.get<Task>(`/tasks/${title}`);
+
+  return res.data;
+};
+
+export const createTask = async ({ title, description }: createTaskDTO) => {
+  return await http.post("/tasks", {
+    Title: title,
+    Description: description,
+  });
 };
 
 export const deleteTask = async (title: string) => {

@@ -1,16 +1,25 @@
-import { useTasks } from "@pages";
-
 import { TasksFilter, TasksList } from "@widgets";
 
 import styles from "./homePage.module.css";
+import {
+  useChangeTaskStatus,
+  useDeleteTask,
+  useTaskFilter,
+  useTasks,
+} from "@entities";
 
 export const HomePage = () => {
-  const { tasks, status, setStatus, deleteTask, doneTask, loading, error } =
-    useTasks();
+  const { data = [], isLoading, isError, error } = useTasks();
 
-  if (loading) return <div>Loading...</div>;
+  const { tasks, status, setStatus } = useTaskFilter(data);
 
-  if (error) return <div>{error}</div>;
+  const { deleteTask } = useDeleteTask();
+
+  const { doneTask } = useChangeTaskStatus();
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (isError) return console.log(error);
 
   return (
     <>

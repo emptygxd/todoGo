@@ -1,0 +1,15 @@
+input {
+  border-radius: 12px;
+  padding: 12px;
+  border: none;
+  background-color: var(--border);
+  border: 1px solid var(--border);
+  font-size: 15px;
+}
+input:last-of-type {
+  margin-bottom: 24px;
+}
+
+input:hover {
+  border-color: #888;
+}

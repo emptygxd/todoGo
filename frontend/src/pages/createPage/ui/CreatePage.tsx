@@ -1,30 +1,22 @@
 import { useState } from "react";
-import { http } from "@shared";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import { useCreateTask } from "@entities";
+
+import { Button, Input } from "@shared";
 
 import styles from "./createPage.module.css";
 
 export const CreatePage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [error, setError] = useState<null | "">(null);
 
-  const navigate = useNavigate();
+  const { createMutation, error } = useCreateTask();
 
   const handleClick = async () => {
-    try {
-      await http.post("/tasks", {
-        Title: title,
-        Description: description,
-      });
-
-      navigate("/");
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        setError(err.response?.data.Message ?? "Неизвестная ошибка");
-      }
-    }
+    createMutation.mutate({
+      title: title.trim(),
+      description: description.trim(),
+    });
   };
 
   return (
@@ -32,7 +24,7 @@ export const CreatePage = () => {
       <div className={styles.createContainer}>
         <h1>CreatePage</h1>
 
-        <input
+        <Input
           type="text"
           placeholder="Title"
           name="title"
@@ -40,7 +32,7 @@ export const CreatePage = () => {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <input
+        <Input
           type="text"
           placeholder="Description"
           name="description"
@@ -48,7 +40,7 @@ export const CreatePage = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <button onClick={handleClick}>Создать</button>
+        <Button onClick={handleClick}>Создать</Button>
         {error ?? <div>{error}</div>}
       </div>
     </div>

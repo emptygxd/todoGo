@@ -5,7 +5,7 @@ import style from "./tasksList.module.css";
 type Props = {
   tasks: Task[];
   onDelete: (title: string) => void;
-  onComplete: (title: string) => void;
+  onComplete: (title: string, completed: boolean) => void;
 };
 
 export const TasksList = ({ tasks, onDelete, onComplete }: Props) => {
