@@ -83,8 +83,8 @@ func (l *List) ListCompletedTasks() map[string]Task {
 }
 
 func (l *List) CompleteTask(title string) (Task, error) {
-	l.mtx.RLock()
-	defer l.mtx.RUnlock()
+	l.mtx.Lock()
+	defer l.mtx.Unlock()
 
 	v, ok := l.tasks[title]
 	if !ok {
@@ -99,8 +99,8 @@ func (l *List) CompleteTask(title string) (Task, error) {
 }
 
 func (l *List) UncompleteTask(title string) (Task, error) {
-	l.mtx.RLock()
-	defer l.mtx.RUnlock()
+	l.mtx.Lock()
+	defer l.mtx.Unlock()
 
 	v, ok := l.tasks[title]
 	if !ok {

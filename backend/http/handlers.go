@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"todo/postgres"
 	"todo/todo"
 
 	"github.com/gorilla/mux"
@@ -18,6 +19,16 @@ type HTTPHandlers struct {
 func NewHTTPHandlers(todoList *todo.List) *HTTPHandlers {
 	return &HTTPHandlers{
 		todoList: todoList,
+	}
+}
+
+type HTTPHandlers2 struct {
+	taskRepository postgres.TaskRepository
+}
+
+func NewHTTPHandlers2(taskRepository postgres.TaskRepository) *HTTPHandlers2 {
+	return &HTTPHandlers2{
+		taskRepository: taskRepository,
 	}
 }
 
@@ -36,7 +47,7 @@ pattern: /tasks
 method:  POST
 info:    JSON in HTTP request body
 */
-func (h *HTTPHandlers) HandleCreateTask(w http.ResponseWriter, r *http.Request) {
+func (h *HTTPHandlers2) HandleCreateTask(w http.ResponseWriter, r *http.Request) {
 	var taskDTO TaskDTO
 	if err := json.NewDecoder(r.Body).Decode(&taskDTO); err != nil {
 		errDTO := NewErrDTO(err.Error())
@@ -53,7 +64,7 @@ func (h *HTTPHandlers) HandleCreateTask(w http.ResponseWriter, r *http.Request) 
 	}
 
 	task := todo.NewTask(taskDTO.Title, taskDTO.Description)
-	if err := h.todoList.AddTask(task); err != nil {
+	if err := h.taskRepository.AddTask(task); err != nil {
 		SetError(w, err, todo.ErrTaskAlreadyExists, http.StatusConflict)
 		return
 	}

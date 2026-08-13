@@ -1,11 +1,15 @@
 package todo
 
-import "time"
+import (
+	"time"
+)
 
 type Task struct {
 	Title       string
 	Description string
 	IsCompleted bool
+
+	UserID int32
 
 	CreatedAt   time.Time
 	CompletedAt *time.Time
@@ -16,7 +20,7 @@ func NewTask(title string, description string) Task {
 		Title:       title,
 		Description: description,
 		IsCompleted: false,
-
+		UserID: 1,
 		CreatedAt:   time.Now(),
 		CompletedAt: nil,
 	}
